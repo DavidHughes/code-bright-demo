@@ -2,17 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Filter Aliases
-|--------------------------------------------------------------------------
-|
-| Here we map our filter names to filter classes.
-|
-*/
-
-Route::filter('myPage', 'MyFilter');
-
-/*
-|--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
 |
@@ -23,14 +12,27 @@ Route::filter('myPage', 'MyFilter');
 */
 
 Route::get('/', array(
-  'before' => 'myPage',
   function() {
-	 return View::make('hello');
+	 return View::make('home');
   })
 );
 
-Route::get('/my/page', array(
-  function() {
-      return 'Hello, World!';
-  })
-);
+Route::get('example', function() {
+  return View::make('example');
+});
+
+Route::get('first', function() {
+  return View::make('first');
+});
+
+Route::get('second', function() {
+  return View::make('second');
+});
+
+Route::get('third', function() {
+  return View::make('third');
+});
+
+Route::get('fourth', function() {
+  return View::make('fourth');
+});

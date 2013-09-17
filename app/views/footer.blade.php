@@ -1,0 +1,1 @@
+<p>Copyright - no one, ever</p>
