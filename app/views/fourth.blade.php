@@ -7,6 +7,7 @@
 
 @section('final')
   <p>Final! Stop!</p>
+  <a href="{{ route('first')}}">Wanna go again?</a>
 @stop
 
 {{-- I don't even --}}
