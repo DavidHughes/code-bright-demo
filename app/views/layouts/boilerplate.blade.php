@@ -2,7 +2,9 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>
+    @yield('title')
+  </title>
 
   @section('head')
     <link rel="stylesheet" href="/css/style.css">

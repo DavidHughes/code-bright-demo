@@ -11,16 +11,35 @@
 |
 */
 
-Route::get('/', array(
-  function() {
-	 return View::make('home');
-  })
-);
+Route::get('/', function() {
+  return View::make('form');
+});
+
+Route::post('handle-form', function() {
+  $book = Input::file('book');
+  $name = $book->getClientOriginalName();
+
+  $msg = $name.' ('.$book->getMimeType().') was moved';
+  try {
+    $book->move('/Users/davidhughes/Websites/storage', $name);
+  } catch (Exception $e) {
+    $msg = 'Error: Could not copy temporary file. More details: '.$e->getMessage();
+  }
+  return $msg;
+});
+
+Route::get('post-form', function() {
+  return View::make('form');
+});
 
 Route::get('example', function() {
   return View::make('example');
 });
 
+
+/*
+ * Blade template inheritance playground.
+ */
 Route::get('first', array(
   'as' => 'first',
   function() {
@@ -40,6 +59,9 @@ Route::get('fourth', function() {
   return View::make('fourth');
 });
 
+/*
+ * Below are reached at /books/(first|second|third)
+ */
 Route::group(array('prefix'=>'books'), 
   function() {
     // First Route  
