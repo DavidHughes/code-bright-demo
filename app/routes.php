@@ -12,21 +12,16 @@
 */
 
 Route::get('/', function() {
-  return View::make('form');
+  $cookie = Cookie::make('test', 'delicious', 5);
+  return Response::make('You made it! Have a cookie.')->withCookie($cookie);
 });
 
-Route::post('handle-form', function() {
-  $book = Input::file('book');
-  $name = $book->getClientOriginalName();
-
-  $msg = $name.' ('.$book->getMimeType().') was moved';
-  try {
-    $book->move('/Users/davidhughes/Websites/storage', $name);
-  } catch (Exception $e) {
-    $msg = 'Error: Could not copy temporary file. More details: '.$e->getMessage();
-  }
-  return $msg;
+Route::get('/consume-cookie', function() {
+  $cookie = Cookie::get('test');
+  var_dump($cookie);
 });
+
+// Archived, cba to delete. Make a new repo if you actually get an idea of a thing to hack together.
 
 Route::get('post-form', function() {
   return View::make('form');
