@@ -1,13 +1,25 @@
-@extends('layouts/boilerplate')
+<h1>Registration to Phill's Parks!</h1>
+{{ Form::open(array('url' => 'registration')) }}
 
-@section('title')
-  Laravel Form Example
-@stop
+  {{-- Username field. -----------------------}}
+  {{ Form::label('username', 'Username') }}
+  {{ Form::text('username') }}
 
-@section('body')
-  <form action="{{ url('handle-form') }}" method="POST" enctype="multipart/form-data">
-    <input type="file" name="book" />
+  {{ $errors->first('username', '<span class="error">&lt;- :message</span>')}}
+  <br />
+  {{-- Email address field. ------------------}}
+  {{ Form::label('email',' Email address')}}
+  {{ Form::email('email')}}
+  <br />
+  {{-- Password field. -----------------------}}
+  {{ Form::label('password', 'Password') }}
+  {{ Form::password('password') }}
+  <br />
+  {{-- Password confirmation field. ----------}}
+  {{ Form::label('password_confirmation', 'Password confirmation') }}
+  {{ Form::password('password_confirmation') }}
+  <br />
+  {{-- Form submit button. -------------------}}
+  {{ Form::submit('Register') }}
 
-    <input type="submit" value="Send" />
-  </form>
-@stop
+{{ Form::close() }}

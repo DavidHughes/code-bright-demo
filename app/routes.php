@@ -12,57 +12,26 @@
 */
 
 Route::get('/', function() {
-  $cookie = Cookie::make('test', 'delicious', 5);
-  return Response::make('You made it! Have a cookie.')->withCookie($cookie);
-});
-
-Route::get('/consume-cookie', function() {
-  $cookie = Cookie::get('test');
-  var_dump($cookie);
-});
-
-// Archived, cba to delete. Make a new repo if you actually get an idea of a thing to hack together.
-
-Route::get('post-form', function() {
   return View::make('form');
 });
 
-Route::get('example', function() {
-  return View::make('example');
-});
+Route::post('/registration', function() {
+  $data = Input::all();
 
+  $rules = array(
+    'username' => 'required|alpha_num|min:3|max:32',
+    'email'    => 'required|email',
+    'password' => 'required|confirm|min:3'
+  );
 
-/*
- * Blade template inheritance playground.
- */
-Route::get('first', array(
-  'as' => 'first',
-  function() {
-    return View::make('first');
-  })
-);
+  $validator = Validator::make($data, $rules);
 
-Route::get('second', function() {
-  return View::make('second');
-});
+  if ($validator->passes()) {
+    // IT PASSED!
 
-Route::get('third', function() {
-  return View::make('third');
-});
+    return 'Data was* saved';
+  }
 
-Route::get('fourth', function() {
-  return View::make('fourth');
-});
-
-/*
- * Below are reached at /books/(first|second|third)
- */
-Route::group(array('prefix'=>'books'), 
-  function() {
-    // First Route  
-    Route::get('/first', function() { return 'The Colour of Magic'; });
-    // Second Route
-    Route::get('/second', function() { return 'Reaper Man'; });
-    // Third Route
-    Route::get('/third', function() { return 'Lords and Ladies'; });
+  // Bad validation
+  return Redirect::to('/')->withErrors($validator);
 });
